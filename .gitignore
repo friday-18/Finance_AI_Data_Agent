@@ -1,0 +1,11 @@
+.env
+backend/.env
+backend/data/
+backend/logs/
+__pycache__/
+*.pyc
+venv/
+myvenv/
+testvenv/
+.venv/
+.vscode/
