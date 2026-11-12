@@ -27,7 +27,15 @@ def get_number_setting(setting_name, default_value):
     except ValueError:
         return default_value
 
+def get_float_setting(setting_name, default_value):
+    """Read a decimal-number setting. Return default if missing or invalid."""
+    raw_value = os.getenv(setting_name, "")
+    try:
+        return float(raw_value)
+    except ValueError:
+        return default_value
 
+    
 # ---------------- SQL Server settings ----------------
 DB_SERVER = get_text_setting("DB_SERVER")
 DB_NAME = get_text_setting("DB_NAME")
@@ -39,10 +47,13 @@ DB_TRUST_SERVER_CERTIFICATE = get_text_setting("DB_TRUST_SERVER_CERTIFICATE", "y
 # ---------------- Query safety limits ----------------
 QUERY_TIMEOUT_SECONDS = get_number_setting("QUERY_TIMEOUT_SECONDS", 30)
 MAX_ROWS_RETURNED = get_number_setting("MAX_ROWS_RETURNED", 500)
+SCHEMA_CACHE_MINUTES = get_number_setting("SCHEMA_CACHE_MINUTES", 60)
 
 # ---------------- Gemini settings (used in Phase 4) ----------------
 GOOGLE_API_KEY = get_text_setting("GOOGLE_API_KEY")
 GEMINI_MODEL = get_text_setting("GEMINI_MODEL")
+GEMINI_TEMPERATURE = get_float_setting("GEMINI_TEMPERATURE", 0.0)
+GEMINI_TIMEOUT_SECONDS = get_number_setting("GEMINI_TIMEOUT_SECONDS", 60)
 
 # ---------------- Paths ----------------
 DATA_FOLDER = os.path.join(BACKEND_FOLDER, "data")
